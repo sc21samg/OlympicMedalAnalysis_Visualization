@@ -1,1 +1,1 @@
-# World-Data-Reprezentation
+# COMP3736-Information-Visualization

@@ -1,0 +1,74 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import time
+
+# Load the data from the Excel file
+file_path = 'Medals According to Years for top 10 countries (1896-2020).xlsx'
+df = pd.read_excel(file_path)
+
+# Clean up column names by replacing non-breaking space with a regular space
+df.columns = df.columns.str.replace('\xa0', ' ')
+
+# Extracting necessary columns for plotting
+years = df['year']
+countries = df.columns[1:]  # Extract country names from columns (excluding 'year')
+
+# Print column names to identify the correct name
+print("Column Names:", df.columns)
+
+# Define questions and corresponding plotting code
+questions_and_code = [
+    ("1. Which year the United States won the medals the most?", 
+     lambda: plt.plot(years, df[' United States (USA)'], marker='o', color='b', linestyle='-', label='United States')),
+
+    ("2. Which country got more medals over the years: Russia or China?",
+     lambda: plt.plot(years, df['China (CHN)'], marker='o', color='m', label='China', linestyle='-')
+             + plt.plot(years, df['Russia/Soviet Union/ROC'], marker='o', color='orange', label='Russia/Soviet Union/ROC', linestyle='-')),
+
+    ("3. Which country won the medals the most in 1980?",
+     lambda: [plt.plot(years, df[country], marker='o', label=country, linestyle='-') for country in countries]),
+
+    ("4. Which country got more medals over the years: Sweden or Norway?",
+     lambda: plt.plot(years, df['Sweden (SWE)'], marker='o', color='grey', label='Sweden', linestyle='-')
+             + plt.plot(years, df['Norway (NOR)'], marker='o', color= 'olive', label='Norway', linestyle='-')),
+
+    ("5. Which country decreased in the number of medals between 1908 to 1936 overall: Great Britain or Italy?",
+     lambda: plt.plot(years[(years >= 1908) & (years <= 1936)], df['Great Britain (GBR)'][(years >= 1908) & (years <= 1936)], marker='o', color='red', linestyle='-', label='Great Britain')
+             + plt.plot(years[(years >= 1908) & (years <= 1936)], df['Italy (ITA)'][(years >= 1908) & (years <= 1936)], marker='o', color='pink', linestyle='-', label='Italy')),
+
+    ("6. Which year did France win the most medals?", 
+     lambda: plt.plot(years, df[' France (FRA)'], marker='o', color='brown', linestyle='-', label='France')),
+
+    ("7. In which year did Japan get the fewest medals?",
+     lambda: plt.plot(years, df['Japan (JPN)'], marker='o', color='xkcd:sky blue',  linestyle='-', label='Japan')),
+
+    ("8. Which country has the fastest increase in the number of medals between 1968 to 1980?",
+     lambda: [plt.plot(years[(years >= 1968) & (years <= 1980)], df[country][(years >= 1968) & (years <= 1980)], marker='o', linestyle='-', label=country) for country in countries]),
+
+    ("9. From when to when did Russia not participate in the Olympics?",
+     lambda: plt.plot(years, df['Russia/Soviet Union/ROC'], marker='o', color='orange', linestyle='-', label='Russia/Soviet Union/ROC')),
+
+    ("10. Which year the Germany win the medals the most?",
+     lambda: plt.plot(years[::4], df['Germany (GER) (Includes east and west along with unified)'][::4], marker='o', color='green', linestyle='-', label='Germany'))
+]
+
+# Display questions interactively
+for question, plot_code in questions_and_code:
+    input("Press Enter to continue...")  # Wait for user input to proceed to the next question
+    start_time = time.time()  # Record the start time
+    print(question)
+    plot_code()  # Execute the corresponding plotting code
+
+    # Adjust x-axis ticks and labels only for the fifth chart
+    if question.startswith("10."):
+        plt.xticks(years[::4], rotation=45)
+        
+    plt.title(question)
+    plt.xlabel('Year')
+    plt.ylabel('Number of Medals')
+    plt.legend(loc='upper left', bbox_to_anchor=(1, 1))  # Add legend
+    plt.grid(True)
+    plt.show()
+    end_time = time.time()  # Record the end time
+    response_time = end_time - start_time
+    print(f"Response Time: {response_time:.4f} seconds\n")

@@ -1,0 +1,521 @@
+{% extends 'header.html' %}
+
+{% block header_content %}
+    Main graphs
+{% endblock %}
+
+{% block content %}
+    <script>
+        // JavaScript to handle recording of response time
+        let startTime;
+
+        document.addEventListener('DOMContentLoaded', function () {
+            startTime = new Date().getTime();  // Record start time when the document is loaded
+        });
+
+        function recordResponseTime() {
+            const endTime = new Date().getTime();  // Record end time on form submission
+            const responseTime = (endTime - startTime) / 1000;  // Calculate duration in seconds
+            document.getElementById('responseTime').value = responseTime;  // Set the duration in the hidden input field
+        }
+    </script>
+    <style>
+        /* Common styles for containers */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+        }
+
+        .text-container {
+            width: 50%; /* Width for the text/content */
+            padding: 20px;
+        }
+
+        .text-content {
+            text-align: left;
+        }
+
+        .graph-container {
+            width: 50%; /* Width for the graphs */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .graph-container h2 {
+            margin-bottom: 10px;
+        }
+
+        .graph-container img {
+            width: 100%;
+            max-width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        .vertical-line {
+            border-left: 2px solid #000; /* Vertical line properties */
+            height: 100vh;
+            margin-left: 20px; /* Adjust the space between text and graphs */
+        }
+
+        .text-content {
+            font-size: 20px; /* Adjust font size as needed */
+        }
+
+        /* Styling for the "Next" button */
+        .nextButton {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .nextButton button {
+            padding: 10px 20px;
+            font-size: 30px;
+            background-color: #3c3e5f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        /* Styling for bubble-like containers */
+        .bubble-container {
+            display: inline-block;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+                
+        .bubble {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 2px solid #ccc;
+            transition: background-color 0.3s ease;
+        }
+                
+        /* CSS to change the background color on selection */
+        .selected {
+            background-color: blue;
+            color: white;
+            border-color: blue;
+        }
+    </style>
+
+    <script>
+        function selectBubble(selected) {
+            var bubbles = document.querySelectorAll('.bubble-container');
+
+            bubbles.forEach(function (bubble) {
+                bubble.querySelector('label').classList.remove('selected');
+            });
+
+            selected.querySelector('label').classList.add('selected');
+        }
+    </script>
+
+    <div class="text-container">
+        <div class="text-content">
+            {% if question_number == 'Which year did the United States won the medals the most?' %}
+                <h2>Which year did the United States won the medals the most?</h2>
+                <!-- Add content for Question 1 -->
+                <div>
+                    <img src="data:image/png;base64,{{ usa_chart_url }}" alt="United States Medal Count">
+                </div>
+                <form action="/save_answer/1" method="post" onsubmit="recordResponseTime()"> <!-- Update action attribute to include the question number -->
+                    {% for choice in answer_choices %}
+                        <div class="bubble-container" onclick="selectBubble(this)">
+                            <input type="radio" id="option{{ loop.index }}" name="answer" value="{{ choice }}" required>
+                            <label for="option{{ loop.index }}" class="bubble">{{ choice }}</label>
+                        </div>
+                    {% endfor %}
+                    <input type="hidden" id="responseTime" name="responseTime" value="">
+                    <div class="nextButton">
+                        <button type="submit">Next</button>
+                    </div>
+                </form>         
+                
+            {% elif question_number == 'Which country got more medals over the years: Russia or China?' %}
+                <h2>Which country got more medals over the years: Russia or China?</h2>
+                <!-- Add content for Question 2 -->
+                <div>
+                    <img src="data:image/png;base64,{{ comparison_chart_url }}" alt="Comparison Graph">
+                </div>
+                <form action="/save_answer/2" method="post" onsubmit="recordResponseTime()"> <!-- Update action attribute to include the question number -->
+                    {% for choice in answer_choices %}
+                        <div class="bubble-container" onclick="selectBubble(this)">
+                            <input type="radio" id="option{{ loop.index }}" name="answer" value="{{ choice }}" required>
+                            <label for="option{{ loop.index }}" class="bubble">{{ choice }}</label>
+                        </div>
+                    {% endfor %}
+                    <input type="hidden" id="responseTime" name="responseTime" value="">
+                    <div class="nextButton">
+                        <button type="submit">Next</button>
+                    </div>
+                </form>   
+            {% elif question_number == 'Which country won the medals the most in 1980?' %}
+                <h2>Which country won the medals the most in 1980?</h2>
+                <!-- Add content for Question 3 -->
+                <div>
+                    <h4>For graph details to answer the question refer to the Line chart in the main graphs at the right hand side of this page.</h4>
+                </div>
+                <form action="/save_answer/3" method="post" onsubmit="recordResponseTime()"> <!-- Update action attribute to include the question number -->
+                    {% for choice in answer_choices %}
+                        <div class="bubble-container" onclick="selectBubble(this)">
+                            <input type="radio" id="option{{ loop.index }}" name="answer" value="{{ choice }}" required>
+                            <label for="option{{ loop.index }}" class="bubble">{{ choice }}</label>
+                        </div>
+                    {% endfor %}
+                    <input type="hidden" id="responseTime" name="responseTime" value="">
+                    <div class="nextButton">
+                        <button type="submit">Next</button>
+                    </div>
+                </form> 
+            {% elif question_number == 'Which country got more medals over the years: Sweden or Norway?' %}
+                <h2>Which country got more medals over the years: Sweden or Norway?</h2>
+                <!-- Add content for Question 4 -->
+                <div>
+                    <img src="data:image/png;base64,{{ sweden_norway_chart_url }}" alt="Comparison Graph">
+                </div>
+                <form action="/save_answer/4" method="post" onsubmit="recordResponseTime()"> <!-- Update action attribute to include the question number -->
+                    {% for choice in answer_choices %}
+                        <div class="bubble-container" onclick="selectBubble(this)">
+                            <input type="radio" id="option{{ loop.index }}" name="answer" value="{{ choice }}" required>
+                            <label for="option{{ loop.index }}" class="bubble">{{ choice }}</label>
+                        </div>
+                    {% endfor %}
+                    <input type="hidden" id="responseTime" name="responseTime" value="">
+                    <div class="nextButton">
+                        <button type="submit">Next</button>
+                    </div>
+                </form> 
+            {% elif question_number == 'Which country decreased in the number of medals between 1908 to 1936 overall: Great Britain or Italy?' %}
+                <h2>Which country decreased in the number of medals between 1908 to 1936 overall: Great Britain or Italy?</h2>
+                <!-- Add content for Question 5 -->
+                <div>
+                    <img src="data:image/png;base64,{{ medals_comparison_chart_url }}" alt="Comparison Graph">
+                </div>
+                <form action="/save_answer/5" method="post" onsubmit="recordResponseTime()"> <!-- Update action attribute to include the question number -->
+                    {% for choice in answer_choices %}
+                        <div class="bubble-container" onclick="selectBubble(this)">
+                            <input type="radio" id="option{{ loop.index }}" name="answer" value="{{ choice }}" required>
+                            <label for="option{{ loop.index }}" class="bubble">{{ choice }}</label>
+                        </div>
+                    {% endfor %}
+                    <input type="hidden" id="responseTime" name="responseTime" value="">
+                    <div class="nextButton">
+                        <button type="submit">Next</button>
+                    </div>
+                </form> 
+            {% elif question_number == 'Which year did France win the most medals?' %}
+                <h2>Which year did France win the most medals?</h2>
+                <!-- Add content for Question 6 -->
+                <div>
+                    <img src="data:image/png;base64,{{ france_chart_url }}" alt="France Medals Graph">
+                </div>                
+                <form action="/save_answer/6" method="post" onsubmit="recordResponseTime()"> <!-- Update action attribute to include the question number -->
+                    {% for choice in answer_choices %}
+                        <div class="bubble-container" onclick="selectBubble(this)">
+                            <input type="radio" id="option{{ loop.index }}" name="answer" value="{{ choice }}" required>
+                            <label for="option{{ loop.index }}" class="bubble">{{ choice }}</label>
+                        </div>
+                    {% endfor %}
+                    <input type="hidden" id="responseTime" name="responseTime" value="">
+                    <div class="nextButton">
+                        <button type="submit">Next</button>
+                    </div>
+                </form> 
+            {% elif question_number == 'In which year did Japan get the fewest medals?' %}
+                <h2>In which year did Japan get the fewest medals?</h2>
+                <!-- Add content for Question 7 -->
+                <div>
+                    <img src="data:image/png;base64,{{ japan_medals_chart_url }}" alt="Comparison Graph">
+                </div>
+                <form action="/save_answer/7" method="post" onsubmit="recordResponseTime()"> <!-- Update action attribute to include the question number -->
+                    {% for choice in answer_choices %}
+                        <div class="bubble-container" onclick="selectBubble(this)">
+                            <input type="radio" id="option{{ loop.index }}" name="answer" value="{{ choice }}" required>
+                            <label for="option{{ loop.index }}" class="bubble">{{ choice }}</label>
+                        </div>
+                    {% endfor %}
+                    <input type="hidden" id="responseTime" name="responseTime" value="">
+                    <div class="nextButton">
+                        <button type="submit">Next</button>
+                    </div>
+                </form> 
+            {% elif question_number == 'Which country has the fastest increase in the number of medals between 1968 to 1980?' %}
+                <h2>Which country has the fastest increase in the number of medals between 1968 to 1980?</h2>
+                <!-- Add content for Question 8 -->
+                <div>
+                    <img src="data:image/png;base64,{{ fastest_increase_chart_url }}" alt="Fastest Increase Graph">
+                </div>                
+                <form action="/save_answer/8" method="post" onsubmit="recordResponseTime()"> <!-- Update action attribute to include the question number -->
+                    {% for choice in answer_choices %}
+                        <div class="bubble-container" onclick="selectBubble(this)">
+                            <input type="radio" id="option{{ loop.index }}" name="answer" value="{{ choice }}" required>
+                            <label for="option{{ loop.index }}" class="bubble">{{ choice }}</label>
+                        </div>
+                    {% endfor %}
+                    <input type="hidden" id="responseTime" name="responseTime" value="">
+                    <div class="nextButton">
+                        <button type="submit">Next</button>
+                    </div>
+                </form> 
+            {% elif question_number == 'From when to when did Russia not participate in the Olympics?' %}
+                <h2>From when to when did Russia not participate in the Olympics?</h2>
+                <!-- Add content for Question 9 -->
+                <div>
+                    <img src="data:image/png;base64,{{ russia_participation_chart_url }}" alt="Comparison Graph">
+                </div>
+                <form action="/save_answer/9" method="post" onsubmit="recordResponseTime()"> <!-- Update action attribute to include the question number -->
+                    {% for choice in answer_choices %}
+                        <div class="bubble-container" onclick="selectBubble(this)">
+                            <input type="radio" id="option{{ loop.index }}" name="answer" value="{{ choice }}" required>
+                            <label for="option{{ loop.index }}" class="bubble">{{ choice }}</label>
+                        </div>
+                    {% endfor %}
+                    <input type="hidden" id="responseTime" name="responseTime" value="">
+                    <div class="nextButton">
+                        <button type="submit">Next</button>
+                    </div>
+                </form> 
+            {% elif question_number == 'Which year did Germany win the medals the most?' %}
+                <h2>Which year did Germany win the medals the most?</h2>
+                <!-- Add content for Question 10 -->
+                <div>
+                    <img src="data:image/png;base64,{{ germany_chart_url }}" alt="Fastest Increase Graph">
+                </div> 
+                <form action="/save_answer/10" method="post" onsubmit="recordResponseTime()"> <!-- Update action attribute to include the question number -->
+                    {% for choice in answer_choices %}
+                        <div class="bubble-container" onclick="selectBubble(this)">
+                            <input type="radio" id="option{{ loop.index }}" name="answer" value="{{ choice }}" required>
+                            <label for="option{{ loop.index }}" class="bubble">{{ choice }}</label>
+                        </div>
+                    {% endfor %}
+                    <input type="hidden" id="responseTime" name="responseTime" value="">
+                    <div class="nextButton">
+                        <button type="submit">Next</button>
+                    </div>
+                </form> 
+                {% elif question_number == 'In which year did the USA win the most gold and silver medals combined?' %}
+                <h2>In which year did the USA win the most gold and silver medals combined?</h2>
+                <!-- Add content for Question 11 -->
+                <div>
+                    <img src="data:image/png;base64,{{ usa_gold_silver_chart_url }}" alt="USA Gold and Silver Medals Graph">
+                </div>
+                <form action="/save_answer/11" method="post" onsubmit="recordResponseTime()"> <!-- Update action attribute to include the question number -->
+                    {% for choice in answer_choices %}
+                        <div class="bubble-container" onclick="selectBubble(this)">
+                            <input type="radio" id="option{{ loop.index }}" name="answer" value="{{ choice }}" required>
+                            <label for="option{{ loop.index }}" class="bubble">{{ choice }}</label>
+                        </div>
+                    {% endfor %}
+                    <input type="hidden" id="responseTime" name="responseTime" value="">
+                    <div class="nextButton">
+                        <button type="submit">Next</button>
+                    </div>
+                </form>
+                {% elif question_number == 'In which year has Russia been the most consistent in winning medals across all categories?' %}
+                <h2>In which year has Russia been the most consistent in winning medals across all categories?</h2>
+                <div>
+                    <img src="data:image/png;base64,{{ russia_graph_url }}" alt="Russia Medals Graph">
+                </div>
+                <form action="/save_answer/12" method="post" onsubmit="recordResponseTime()">
+                    {% for choice in answer_choices %}
+                        <div class="bubble-container" onclick="selectBubble(this)">
+                            <input type="radio" id="option{{ loop.index }}" name="answer" value="{{ choice }}" required>
+                            <label for="option{{ loop.index }}" class="bubble">{{ choice }}</label>
+                        </div>
+                    {% endfor %}
+                    <input type="hidden" id="responseTime" name="responseTime" value="">
+                    <div class="nextButton">
+                        <button type="submit">Next</button>
+                    </div>
+                </form>
+
+                {% elif question_number == 'Did the UK have a significant improvement in performance during a specific period?' %}
+                    <h2>Did the UK have a significant improvement in performance during a specific period?</h2>
+                    <div>
+                        <img src="data:image/png;base64,{{ uk_graph_url }}" alt="UK Medals Graph">
+                    </div>
+                    <form action="/save_answer/13" method="post" onsubmit="recordResponseTime()">
+                        {% for choice in answer_choices %}
+                            <div class="bubble-container" onclick="selectBubble(this)">
+                                <input type="radio" id="option{{ loop.index }}" name="answer" value="{{ choice }}" required>
+                                <label for="option{{ loop.index }}" class="bubble">{{ choice }}</label>
+                            </div>
+                        {% endfor %}
+                        <input type="hidden" id="responseTime" name="responseTime" value="">
+                        <div class="nextButton">
+                            <button type="submit">Next</button>
+                        </div>
+                    </form>
+
+                {% elif question_number == 'Which Olympic Games saw the biggest decline in Germany’s medal count?' %}
+                    <h2>Which Olympic Games saw the biggest decline in Germany’s medal count?</h2>
+                    <div>
+                        <img src="data:image/png;base64,{{ germany_graph_url }}" alt="Germany Medals Graph">
+                    </div>
+                    <form action="/save_answer/14" method="post" onsubmit="recordResponseTime()">
+                        {% for choice in answer_choices %}
+                            <div class="bubble-container" onclick="selectBubble(this)">
+                                <input type="radio" id="option{{ loop.index }}" name="answer" value="{{ choice }}" required>
+                                <label for="option{{ loop.index }}" class="bubble">{{ choice }}</label>
+                            </div>
+                        {% endfor %}
+                        <input type="hidden" id="responseTime" name="responseTime" value="">
+                        <div class="nextButton">
+                            <button type="submit">Next</button>
+                        </div>
+                    </form>
+
+                {% elif question_number == 'How did China’s medal performance in the 2008 Olympic Games, when they were the host nation, compare to other years?' %}
+                    <h2>How did China’s medal performance in the 2008 Olympic Games, when they were the host nation, compare to other years?</h2>
+                    <div>
+                        <img src="data:image/png;base64,{{ china_graph_url }}" alt="China Medals Graph">
+                    </div>
+                    <form action="/save_answer/15" method="post" onsubmit="recordResponseTime()">
+                        {% for choice in answer_choices %}
+                            <div class="bubble-container" onclick="selectBubble(this)">
+                                <input type="radio" id="option{{ loop.index }}" name="answer" value="{{ choice }}" required>
+                                <label for="option{{ loop.index }}" class="bubble">{{ choice }}</label>
+                            </div>
+                        {% endfor %}
+                        <input type="hidden" id="responseTime" name="responseTime" value="">
+                        <div class="nextButton">
+                            <button type="submit">Next</button>
+                        </div>
+                    </form>
+            
+
+                {% elif question_number == 'Which country had the highest number of silver medals in the Summer Olympics from 1896 to 2020?' %}
+                    <h2>Which country had the highest number of silver medals in the Summer Olympics from 1896 to 2020?</h2>
+                    <div>
+                        <h4>For graph details to answer the question refer to the Area chart in the main graphs at the right hand side of this page.</h4>
+                    </div>
+                    <form action="/save_answer/16" method="post" onsubmit="recordResponseTime()">
+                        {% for choice in answer_choices %}
+                            <div class="bubble-container" onclick="selectBubble(this)">
+                                <input type="radio" id="option{{ loop.index }}" name="answer" value="{{ choice }}" required>
+                                <label for="option{{ loop.index }}" class="bubble">{{ choice }}</label>
+                            </div>
+                        {% endfor %}
+                        <input type="hidden" id="responseTime" name="responseTime" value="">
+                        <div class="nextButton">
+                            <button type="submit">Next</button>
+                        </div>
+                    </form>
+
+                {% elif question_number == 'How many silver medals did Germany win in total over the years?' %}
+                    <h2>How many silver medals did Germany win in total over the years?</h2>
+                    <div>
+                        <h4>For graph details to answer the question refer to the Area chart in the main graphs at the right hand side of this page.</h4>
+                    </div>
+                    <form action="/save_answer/17" method="post" onsubmit="recordResponseTime()">
+                        {% for choice in answer_choices %}
+                            <div class="bubble-container" onclick="selectBubble(this)">
+                                <input type="radio" id="option{{ loop.index }}" name="answer" value="{{ choice }}" required>
+                                <label for="option{{ loop.index }}" class="bubble">{{ choice }}</label>
+                            </div>
+                        {% endfor %}
+                        <input type="hidden" id="responseTime" name="responseTime" value="">
+                        <div class="nextButton">
+                            <button type="submit">Next</button>
+                        </div>
+                    </form>
+
+                {% elif question_number == 'Has China won at least 150 medals of each type (gold, silver, bronze) over the years?' %}
+                    <h2>Has China won at least 150 medals of each type (gold, silver, bronze) over the years?</h2>
+                    <div>
+                        <h4>For graph details to answer the question refer to the Area chart in the main graphs at the right hand side of this page.</h4>
+                    </div>
+                    <form action="/save_answer/18" method="post" onsubmit="recordResponseTime()">
+                        {% for choice in answer_choices %}
+                            <div class="bubble-container" onclick="selectBubble(this)">
+                                <input type="radio" id="option{{ loop.index }}" name="answer" value="{{ choice }}" required>
+                                <label for="option{{ loop.index }}" class="bubble">{{ choice }}</label>
+                            </div>
+                        {% endfor %}
+                        <input type="hidden" id="responseTime" name="responseTime" value="">
+                        <div class="nextButton">
+                            <button type="submit">Next</button>
+                        </div>
+                    </form>
+
+                {% elif question_number == 'Which year did the USA experience a significant increase in the number of medals, considering the gold, silver, and bronze categories combined?' %}
+                    <h2>Which year did the USA experience a significant increase in the number of medals, considering the gold, silver, and bronze categories combined?</h2>
+                    <div>
+                        <img src="data:image/png;base64,{{ d_graph_url }}" alt="USA Medals Graph">
+                    </div>
+                    <form action="/save_answer/19" method="post" onsubmit="recordResponseTime()">
+                        {% for choice in answer_choices %}
+                            <div class="bubble-container" onclick="selectBubble(this)">
+                                <input type="radio" id="option{{ loop.index }}" name="answer" value="{{ choice }}" required>
+                                <label for="option{{ loop.index }}" class="bubble">{{ choice }}</label>
+                            </div>
+                        {% endfor %}
+                        <input type="hidden" id="responseTime" name="responseTime" value="">
+                        <div class="nextButton">
+                            <button type="submit">Next</button>
+                        </div>
+                    </form>
+
+                {% elif question_number == 'Which country had the 3rd highest total number of medals (Gold, Silver, Bronze combined) in the Summer Olympics from 1896 to 2020?' %}
+                    <h2>Which country had the 3rd highest total number of medals (Gold, Silver, Bronze combined) in the Summer Olympics from 1896 to 2020?</h2>
+                    <div>
+                        <img src="data:image/png;base64,{{ e_graph_url }}" alt="Medals Distribution Graph">
+                    </div>
+                    <form action="/save_answer/20" method="post" onsubmit="recordResponseTime()">
+                        {% for choice in answer_choices %}
+                            <div class="bubble-container" onclick="selectBubble(this)">
+                                <input type="radio" id="option{{ loop.index }}" name="answer" value="{{ choice }}" required>
+                                <label for="option{{ loop.index }}" class="bubble">{{ choice }}</label>
+                            </div>
+                        {% endfor %}
+                        <input type="hidden" id="responseTime" name="responseTime" value="">
+                        <div class="nextButton">
+                            <button type="submit">Next</button>
+                        </div>
+                    </form>
+
+            {% else %}
+                <!-- Default text content if no question number is specified -->
+                <h2>Instructions:</h2>
+                <p>1. The main graphs shown will be viewable for each question.</p>
+                <p>2. All questions will have subgraphs shown but will be directed to the main graphs, which can be used as a reference to answer the questions.</p>
+                <div class="nextButton">
+                    <button onclick="startRandomQuestion()">Go to Question 1</button>
+                </div>
+                
+                <script>
+                    function startRandomQuestion() {
+                        // Redirect to a new route that will handle random question selection
+                        window.location.href = '/start_random_question';
+                    }
+                </script>
+            {% endif %}
+        </div>
+        <script>
+            function nextQuestion(nextURL) {
+                window.location.href = nextURL;
+            }
+        </script>
+    </div>
+
+    <div class="vertical-line"></div>
+
+    <div class="graph-container">
+        <div>
+            <h2>Line Chart</h2>
+            <img src="data:image/png;base64,{{ chart_url }}" alt="Line Chart">
+        </div>
+
+        <div>
+            <h2>Area Chart</h2>
+            <img src="data:image/png;base64,{{ area_chart_url }}" alt="Area Chart">
+        </div>
+    </div>
+{% endblock %}

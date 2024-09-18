@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Styling for the header */
+        header {
+            background-color: #3c3e5f;
+            padding: 10px;
+            text-align: center;
+            font-size: 50px;
+            font-weight: bold;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>{% block header_content %}Default Header{% endblock %}</header>
+    {% block content %}{% endblock %}
+</body>
+</html>

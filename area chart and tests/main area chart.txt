@@ -1,0 +1,38 @@
+# Importing necessary libraries
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Creating a DataFrame from the provided data
+data = {
+    'Country': ['United States (USA)', 'Russia (RUS)', 'Germany (GER)', 'Great Britain (GBR)', 'China (CHN)'],
+    'Gold': [1061, 608, 305, 296, 285],
+    'Silver': [840, 515, 305, 323, 231],
+    'Bronze': [738, 502, 312, 331, 197]
+}
+df = pd.DataFrame(data)
+
+# Setting 'Country' as the index for the DataFrame
+df.set_index('Country', inplace=True)
+
+# Plotting the data
+plt.figure(figsize=(10, 7))
+ax = df.plot(kind='area', ax=plt.gca())
+plt.title('Total Medal Counts by Country for Summer Olympic Medals from 1896 to 2020')
+plt.xlabel('Country')
+plt.ylabel('Total Number of Medals(Gold+Silver+Bronze+Total)')
+plt.xticks(rotation=45) 
+
+# Adding total medals below each country's name
+total_data = {
+    'Total': [2639, 1625, 922, 950, 713]
+}
+
+for idx, country in enumerate(df.index):
+    total_medals = total_data['Total'][idx]
+    plt.text(idx - 0.1, -300, f'Total Medals: {total_medals}', ha='left', va='center', rotation=45, color='black')
+
+# Hide the legend
+ax.legend().set_visible(True)
+
+plt.tight_layout() 
+plt.show()

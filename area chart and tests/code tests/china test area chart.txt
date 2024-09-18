@@ -1,0 +1,39 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+data = {
+    'Year': [
+        1932, 1936, 1948, 1952, 1984, 1988, 1992, 1996, 2000, 2004, 2008, 2012, 2016, 2020
+    ],
+    'Gold': [
+        0, 0, 0, 0, 15, 5, 16, 16, 28, 32, 48, 39, 26, 38
+    ],
+    'Silver': [
+        0, 0, 0, 0, 8, 11, 22, 22, 16, 17, 22, 31, 18, 32
+    ],
+    'Bronze': [
+        0, 0, 0, 0, 9, 12, 16, 12, 14, 14, 30, 22, 26, 19
+    ]
+}
+
+
+# Convert the updated dataset into a DataFrame and set 'Year' as the index
+df = pd.DataFrame(data)
+df.set_index('Year', inplace=True)
+
+# Define the colors for the medals
+colors = ['#FFD700', '#C0C0C0', '#CD7F32']  # Gold, Silver, Bronze
+
+df.plot(kind='area', color=colors, figsize=(10, 7))
+
+# Set the title and labels
+plt.title('China Summer Olympic Medals from 1932 to 2020')
+plt.xlabel('Year')
+plt.ylabel('Total number of Medals')
+# Rotate x-axis labels for better readability
+plt.xticks(rotation=45)
+
+plt.xticks(df.index)
+plt.legend(loc='upper left')
+plt.tight_layout()
+plt.show()

@@ -1,0 +1,20 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load data from Excel file
+file_path = 'Medals According to Years for top 10 countries (1896-2020).xlsx'
+
+# Read data starting from row 2 for both columns
+df = pd.read_excel(file_path, header=None, skiprows=1, names=['Year', 'Medals'], usecols=[0, 1])
+
+# Plotting the area chart
+plt.figure(figsize=(10, 6))
+df.plot(kind='area', x='Year', y='Medals', color=['gold', 'silver', 'brown'])
+
+# Title and labels
+plt.title('USA Medals Over the Years (1896-2020)')
+plt.xlabel('Year')
+plt.ylabel('Number of Medals')
+plt.grid(True)
+
+plt.show()

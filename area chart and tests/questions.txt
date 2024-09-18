@@ -1,0 +1,43 @@
+USA chart Q:
+In which year did USA win the most gold and silver medals combined?
+Options:
+1.1984
+2.1904
+3.2020
+Correct answer:1904
+
+
+Russia chart Q:
+In which year has Russia been the most consistent in winning medals across all categories?
+Options: 
+1.1980(Gold: 80, Silver: 69, Bronze: 46)
+2.1988(Gold: 55, Silver: 54, Bronze: 26)
+3.1996(Gold: 26, Silver: 21, Bronze: 28)
+Correct answer:1980(Gold: 80, Silver: 69, Bronze: 46)
+
+
+UK chart Q:
+Did the UK have a significant improvement in performance during a specific period?
+Options: 
+1.No, the UK's performance remained consistent throughout the years.
+2.Yes, the UK's performance improved significantly from 1976 to 1984.
+3.Yes, the UK had a significant improvement in performance during the period from 2012 to 2020.
+Correct answer:Yes, the UK had a significant improvement in performance during the period from 2012 to 2020.
+
+
+Germany chart Q:
+Which Olympic Games saw the biggest decline in Germany's medal count?
+Options: 
+1.1952
+2.1984
+3.2008
+Correct answer:1984
+
+
+China chart Q:
+How did China's medal performance in the 2008 Olympic Games, when they were the host nation, compare to other years?
+Options: 
+1.In 2008, China won 80.06% of the total medals it achieved from 1984 to 2020.
+2.In 2008, China won 47.06% of the total medals it achieved from 1984 to 2020.
+3.In 2008, China's medal success was at 47.06%, but the pattern was not uniform, as the victories were exclusively in the silver medal category.
+Correct answer: In 2008, China won 47.06% of the total medals it achieved from 1984 to 2020.

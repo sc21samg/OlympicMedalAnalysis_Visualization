@@ -1,0 +1,61 @@
+{% extends 'header.html' %}
+
+{% block header_content %}
+    Test
+{% endblock %}
+
+{% block content %}
+    <!-- Styles and other HTML content... -->
+        <style>
+        .nextButton {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .nextButton button {
+            padding: 10px 20px;
+            font-size: 30px;
+            background-color: #3c3e5f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+    <body>
+        <div class="testdone">
+            <h2>You Have Completed the Questionnaire!</h2>
+            <h4>Below are your results and answer time.</h4>
+
+            <ul>
+                {% for question_number, answers in user_answers.items() %}
+                    {% for answer_data in answers %}
+                        <li>
+                            <strong>Question {{ question_number }}:</strong> <br>
+                            Answer Time: {{ answer_data['time'] }} seconds
+                            <br>User's Answer: {{ answer_data['answer'] }} 
+                            {% if question_number in correct_answers %}
+                                <br>
+                                Correct Answer: {{ correct_answers[question_number] }} <br>
+                                {% if correct_answers[question_number] == answer_data['answer'] %}
+                                    <span style="color: green;">(Correct)</span>
+                                {% else %}
+                                    <span style="color: red;">(Incorrect)</span>
+                                {% endif %}
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+
+            <h4>Your Score: {{ total_score }} / {{ correct_answers|length }}</h4>
+            <h4>Total Response Time: {{ total_response_time }} seconds</h4>
+        </div>
+            <div class="nextButton">
+        <a href="{{ reset_link }}">
+            <button>Reset Test</button>
+        </a>
+    </div>
+    </body>
+
+    {% endblock %}

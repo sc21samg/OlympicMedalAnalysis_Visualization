@@ -1,0 +1,52 @@
+More q
+Based on the main area chart:
+a.Which country had the highest number of silver medals in the Summer Olympics from 1896 to 2020?
+
+Options:
+1.Russia
+2.The United States
+3.Great Britain
+4.Germany
+Correct answer:The United States
+
+Based on the main area chart:
+b.How many silver medals did Germany win in total over the years?
+
+Options:
+1.415
+2.923
+3.305
+Correct answer:305
+
+Based on the main area chart:
+c.Has China won at least 150 medals of each type (gold, silver, bronze) over the years?
+
+Options:
+1. Yes
+2. No
+Correct answer: Yes
+
+Based on d area chart:
+d.Which year did the USA experience a significant increase in the number of medals, considering the gold, silver, and bronze categories combined?
+
+Options:
+1.1896
+2.1936
+3.1968
+4.2008
+Correct answer:1936
+
+Based on e area chart:
+e.Which country had the 3rd highest total number of medals (Gold, Silver, Bronze combined) in the Summer Olympics from 1896 to 2020?
+
+Options:
+1.United States (USA)
+2.Russia (RUS)
+3.Germany (GER)
+4.Great Britain (GBR)
+Correct answer:Germany (GER)
+
+
+
+
+

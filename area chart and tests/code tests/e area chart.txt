@@ -1,0 +1,27 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Data
+data = {
+    'Country': ['United States (USA)', 'Russia (RUS)', 'Germany (GER)', 'Great Britain (GBR)', 'China (CHN)'],
+    'Gold': [1061, 608, 305, 296, 285],
+    'Silver': [840, 515, 305, 323, 231],
+    'Bronze': [738, 502, 312, 331, 197],
+    'Total': [2639, 1625, 922, 950, 713]
+}
+
+# Create DataFrame
+df = pd.DataFrame(data)
+df.set_index('Country', inplace=True)
+
+# Plotting the area chart
+plt.figure(figsize=(10, 6))
+df.T.plot(kind='area', stacked=True, colormap='jet', alpha=0.7)
+
+# Title and labels
+plt.title('Medals Distribution Over Countries (1896-2020)')
+plt.xlabel('Year')
+plt.ylabel('Number of Medals')
+plt.legend(title='Country', bbox_to_anchor=(1, 1))
+
+plt.show()
