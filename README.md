@@ -31,7 +31,7 @@ Design 20 timed questions: 10 based on the line chart. 10 based on the area char
 
 4. Participant Recruitment: Gather 10 participants for the study. Ensure informed consent and anonymity throughout the experiment.
 
-5.Data Collection: Record response times and track the accuracy of answers for each participant.
+5. Data Collection: Record response times and track the accuracy of answers for each participant.
 Analyze how well participants can comprehend the visual data.
 
 6. Statistical Analysis: Analyze participant response times using descriptive statistics. Track correct and incorrect responses to evaluate comprehension. Perform t-tests to compare response times for line and area charts.
