@@ -16,14 +16,18 @@ This project was developed collaboratively by Ayesha Rahman, Sandra Guran, Natal
 ## Tasks Breakdown
 
 1. Project Setup: Develop a web-based questionnaire using the Python Flask framework. Host the questionnaire on PythonAnywhere.
+ ![Alt text](https://github.com/sc21samg/OlympicMedalAnalysis_Visualization/blob/main/1.0%20git.png)
 
 2. Data Visualization, create two main charts:
- ![Alt text](https://github.com/sc21samg/GraphicAlgorithms_3D_Rendering/blob/main/1.2%20git.png)
 Line Chart: Displaying medal counts for the top 10 countries from 1896-2020.
+ ![Alt text](https://github.com/sc21samg/OlympicMedalAnalysis_Visualization/blob/main/1.1%20git.png)
 Area Chart: Illustrating total medal counts for selected countries from 1896-2020.
+ ![Alt text](https://github.com/sc21samg/OlympicMedalAnalysis_Visualization/blob/main/1.2%20git.png)
 Generate subgraphs for each question to help guide participants.
 
-3. Questionnaire;Design 20 timed questions: 10 based on the line chart. 10 based on the area chart. The questions are randomized and designed to test participants' ability to interpret trends in the data.
+3. Questionnaire
+ ![Alt text](https://github.com/sc21samg/OlympicMedalAnalysis_Visualization/blob/main/1.4%20git.png)
+Design 20 timed questions: 10 based on the line chart. 10 based on the area chart. The questions are randomized and designed to test participants' ability to interpret trends in the data.
 
 4. Participant Recruitment: Gather 10 participants for the study. Ensure informed consent and anonymity throughout the experiment.
 
@@ -35,5 +39,5 @@ Analyze how well participants can comprehend the visual data.
 7. Results Reporting: Summarize findings on participants’ understanding of the historical distribution of Olympic medals. Report key insights, including response times, accuracy rates, and the absence of correlation between time spent and answer accuracy.
 
 ## Technologies Used:
-Python Flask: Web framework for the questionnaire backend.
-Pandas & Matplotlib: Libraries used for data processing and visualization.
+- Python Flask: Web framework for the questionnaire backend.
+- Pandas & Matplotlib: Libraries used for data processing and visualization.
